@@ -1,0 +1,86 @@
+@import "tailwindcss";
+/* Plan docs contain class names for unbuilt modules; keep them out of the CSS. */
+@source not "../docs";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-brand-50: #eaf5ff;
+  --color-brand-100: #cfe8ff;
+  --color-brand-500: #018bf3;
+  --color-brand-600: #0a6fd0;
+  --color-brand-700: #0a5fc4;
+  --color-brand-900: #031e4f;
+  --color-accent-300: #6bfdfe;
+  --color-accent-400: #43e9f7;
+  --color-ink: #0b0f14;
+  --color-slate-brand: #2c3139;
+  --color-surface: #f5f8fc;
+  --color-night: #010203;
+
+  --spacing-section: clamp(4rem, 8vw, 7rem);
+  --spacing-gutter: clamp(1rem, 4vw, 2rem);
+  --container-page: 80rem;
+
+  --radius-card: 1rem;
+  --radius-pill: 9999px;
+  --shadow-card: 0 1px 2px rgb(3 30 79 / 0.06), 0 8px 24px rgb(3 30 79 / 0.08);
+  --shadow-glow: 0 0 32px rgb(107 253 254 / 0.35);
+
+  --text-display: clamp(2.25rem, 1.4rem + 4vw, 4.25rem);
+  --text-display--line-height: 1.1;
+  --text-h2: clamp(1.75rem, 1.2rem + 2.4vw, 2.75rem);
+  --text-h2--line-height: 1.2;
+  --text-h3: clamp(1.25rem, 1.1rem + 0.8vw, 1.625rem);
+  --text-h3--line-height: 1.2;
+  --text-body: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
+  --text-body--line-height: 1.6;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.5;
+}
+
+:root {
+  --gradient-brand: linear-gradient(135deg, var(--color-brand-900) 0%, var(--color-brand-500) 55%, var(--color-accent-300) 100%);
+  --gradient-brand-text: linear-gradient(90deg, var(--color-brand-500), var(--color-accent-400));
+  /* Sticky header height: top bar (2.5rem) + navbar (4rem / 5rem at lg). Header.tsx removes the top bar part on scroll. */
+  --topbar-h: 2.5rem;
+  --navbar-h: 4rem;
+  --header-h: calc(var(--topbar-h) + var(--navbar-h));
+}
+@media (width >= 64rem) { :root { --navbar-h: 5rem; } }
+:root[data-scrolled] { --topbar-h: 0rem; }
+
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 1rem); }
+body { @apply bg-white font-sans text-body text-ink antialiased; }
+
+:focus-visible { outline: 2px solid var(--color-brand-500); outline-offset: 2px; }
+.on-dark :focus-visible { outline-color: var(--color-accent-400); }
+
+.bg-brand-gradient { background-image: var(--gradient-brand); }
+.text-brand-gradient {
+  background-image: var(--gradient-brand-text);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; transition-delay: var(--reveal-delay, 0s); }
+.reveal.in { opacity: 1; transform: none; }
+
+/* Hero slide progress bar: restarted by React keying the element on the slide index. */
+@keyframes hero-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.hero-progress { transform-origin: left; animation: hero-progress var(--hero-interval, 6s) linear forwards; }
+.hero-progress[data-paused] { animation-play-state: paused; }
+
+/* Soft cyan glow behind hero content. */
+.hero-glow {
+  background:
+    radial-gradient(60rem 30rem at 85% 20%, color-mix(in srgb, var(--color-accent-300) 22%, transparent), transparent 70%),
+    radial-gradient(40rem 24rem at 10% 90%, color-mix(in srgb, var(--color-brand-500) 35%, transparent), transparent 70%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .hero-progress { animation: none; transform: scaleX(1); }
+  * { animation-duration: .01ms !important; }
+}
+
+@media print { .reveal { opacity: 1; transform: none; } }

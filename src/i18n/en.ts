@@ -1,0 +1,187 @@
+// English dictionary. Source of truth for key shape: id.ts must match it (tsc enforces).
+// {{name}} tokens are filled by t(key, vars). [PLACEHOLDER] entries must be replaced before launch.
+export const en = {
+  topbar: {
+    phoneLabel: 'Call us',
+    phone: '{{phone}}',
+    emailLabel: 'Info',
+    email: '{{email}}',
+    hoursLabel: 'Operating hours',
+    hours: '{{hours}}',
+    support: 'Replies within one business day',
+  },
+  nav: {
+    menu: 'Menu',
+    home: 'Home',
+    about: 'About',
+    services: 'Services',
+    products: 'Solutions',
+    portfolio: 'Portfolio',
+    clients: 'Clients',
+    careers: 'Careers',
+    contact: 'Contact',
+    cta: 'Talk to us',
+    openMenu: 'Open menu',
+    closeMenu: 'Close menu',
+  },
+  hero: {
+    cta: 'Talk to Us',
+    ctaSecondary: 'Explore Services',
+    prev: 'Previous slide',
+    next: 'Next slide',
+    goTo: 'Go to slide {{n}}',
+    s1: {
+      eyebrow: 'Next-Gen IT Partner',
+      title: 'Your Next-Gen IT Partner',
+      text: 'Born in the cloud era. We build secure, scalable web and mobile apps on a modern stack, without legacy baggage.',
+    },
+    s2: {
+      eyebrow: 'Customer-Obsessed',
+      title: 'Obsessed With Your Outcomes',
+      text: 'Your success is our only metric. Short feedback loops and transparent delivery keep every project aligned with your goals.',
+    },
+    s3: {
+      eyebrow: 'Agile & Capable Team',
+      title: 'An Agile, Capable Team',
+      text: 'Lean, senior-minded engineers who ship fast, adapt quickly, and own the result from idea to production.',
+    },
+    s4: {
+      eyebrow: 'Responsive Support',
+      title: 'Support You Can Count On',
+      text: 'Clear communication and fast responses on business days, so issues are handled before they slow you down.',
+    },
+  },
+  why: {
+    eyebrow: 'Why DATHA',
+    title: 'Built for how technology works today',
+    lead: "We are a new company by design: no outdated playbooks, no inherited technical debt. Every engagement starts with today's best tools and the freedom to adapt.",
+    cta: 'Start a conversation',
+    imageAlt: 'DATHA engineers collaborating',
+    p1: {
+      title: 'Modern tech-stack execution',
+      text: 'Cloud-native architecture, API-first design, CI/CD and automated testing from day one.',
+    },
+    p2: {
+      title: 'Adaptive problem solving',
+      text: 'Short sprints and fast iteration let us change direction as your needs change, without costly rework.',
+    },
+    p3: {
+      title: 'A partner, not a vendor',
+      text: 'Direct access to the engineers building your product. Clear communication, honest estimates.',
+    },
+    p4: {
+      title: 'Secure and reliable by default',
+      text: 'Security reviews, monitoring and backups built into every delivery.',
+    },
+  },
+  services: {
+    eyebrow: 'Our Services',
+    title: 'End-to-end IT solutions',
+    lead: 'From first idea to ongoing operations, one team covers the full stack.',
+    learnMore: 'Learn more',
+    learnMoreAbout: 'Learn more about {{service}}',
+    s1: {
+      title: 'Web App Development',
+      text: 'Fast, secure web applications and portals, built with modern frameworks and designed to scale.',
+    },
+    s2: {
+      title: 'Maintenance & Support',
+      text: 'Proactive monitoring, updates and fixes that keep existing systems fast, secure and stable.',
+    },
+    s3: {
+      title: 'Mobile App Development',
+      text: 'iOS and Android apps, from first prototype to app store release.',
+    },
+    s4: {
+      title: 'IT Consulting',
+      text: 'Practical advice on architecture, cloud and digital strategy that saves time and cost.',
+    },
+    s5: {
+      title: 'System Integration',
+      text: 'Connect your apps, data and devices through robust APIs into one seamless workflow.',
+    },
+    s6: {
+      title: 'Training',
+      text: "Hands-on programs that build your team's skills in modern development and system operations.",
+    },
+  },
+  cta: {
+    title: "Let's discuss the IT solution your business needs",
+    text: 'Tell us your challenge. We reply within one business day with a clear next step.',
+    button: 'Contact now',
+    secondary: 'Request a quote',
+    contactSubject: 'Website inquiry',
+    quoteSubject: 'Quote request via website',
+    mailLabel: '{{label}} (opens your email app)',
+    emailLabel: 'Prefer email?',
+  },
+  portfolio: {
+    eyebrow: 'Recent Work',
+    title: 'Results we deliver',
+    viewCase: 'View case study',
+    p1: {
+      title: 'Workflow platform [PLACEHOLDER]',
+      metric: '{{x}}% faster processing',
+      text: 'Replaced manual spreadsheets with a cloud workflow app.',
+    },
+    p2: {
+      title: 'Systems integration [PLACEHOLDER]',
+      metric: '{{x}} systems unified',
+      text: 'Connected finance, inventory and reporting through one API layer.',
+    },
+    p3: {
+      title: 'Mobile app [PLACEHOLDER]',
+      metric: '{{x}} active users',
+      text: 'Turned a paper-based field process into an iOS and Android app.',
+    },
+  },
+  testimonials: {
+    eyebrow: 'Client Voices',
+    title: 'What our clients say',
+    prev: 'Previous',
+    next: 'Next',
+    t1: {
+      quote: '"They moved at startup speed and communicated like a real partner." [PLACEHOLDER]',
+      author: '{{name}}, {{role}}, {{company}}',
+    },
+    t2: {
+      quote: '"Fast delivery, clean code, and support that actually answers." [PLACEHOLDER]',
+      author: '{{name}}, {{role}}, {{company}}',
+    },
+  },
+  footer: {
+    tagline: 'Ideas • Technology • A Better Tomorrow',
+    about: 'DATHA Digital Solution builds modern web and mobile apps for businesses ready to move faster.',
+    contactTitle: "Let's connect",
+    contactLead: 'Reach our team by phone or email, or visit us in person.',
+    headTitle: 'Head Office',
+    headAddress: '{{address}}',
+    workshopTitle: 'Workshop',
+    workshopAddress: '{{address}}',
+    phone: 'Phone',
+    email: 'Email',
+    hours: 'Operating hours',
+    quickLinks: 'Quick links',
+    followUs: 'Follow us',
+    map: 'View on map',
+    rights: '© {{year}} DATHA Digital Solution. All rights reserved.',
+    privacy: 'Privacy Policy',
+    terms: 'Terms',
+  },
+  meta: {
+    title: 'DATHA Digital Solution — Next-Gen IT Partner',
+    description:
+      'Web and mobile app development, system integration and IT consulting from an agile engineering team.',
+  },
+  common: {
+    skipToContent: 'Skip to content',
+    langLabel: 'Language',
+    langSwitched: 'Language: English',
+    newTab: 'Opens in a new tab',
+  },
+  legal: {
+    updated: 'Last updated: {{date}}',
+    back: 'Back to home',
+    draft: 'Draft: pending legal review',
+  },
+}
