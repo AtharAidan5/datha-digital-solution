@@ -1,6 +1,7 @@
 import { useId } from 'react'
 import { revealDelay, useReveal } from '../../hooks/useReveal'
 import { useT } from '../../i18n'
+import { keepCompounds } from '../../lib/text'
 import { mailtoHref } from '../../lib/links'
 import { site } from '../../lib/site.config'
 import { PixelCluster, type PixelCell } from '../art/Pixels'
@@ -63,7 +64,7 @@ export function CtaBanner() {
           >
             <div className={`${r.className} min-w-0 max-w-3xl`}>
               <h2 id={titleId} className="text-h2 font-extrabold tracking-tight text-balance">
-                {t('cta.title')}
+                {keepCompounds(t('cta.title'))}
               </h2>
               <p className="mt-4 max-w-prose text-body text-pretty text-white/90">{t('cta.text')}</p>
             </div>

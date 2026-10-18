@@ -1,6 +1,7 @@
 import { CtaBanner } from './components/CtaBanner/CtaBanner'
 import { Hero } from './components/Hero/Hero'
 import { Layout } from './components/Layout'
+import { Process } from './components/Process/Process'
 import { Services } from './components/Services/Services'
 import { WhyUs } from './components/WhyUs/WhyUs'
 
@@ -12,6 +13,7 @@ export function App() {
       <Hero />
       <WhyUs />
       <Services />
+      <Process />
       <CtaBanner />
     </Layout>
   )

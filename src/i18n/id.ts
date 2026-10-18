@@ -31,6 +31,8 @@ export const id: Dictionary = {
     prev: 'Slide sebelumnya',
     next: 'Slide berikutnya',
     goTo: 'Ke slide {{n}}',
+    pause: 'Jeda tayangan slide',
+    play: 'Putar tayangan slide',
     s1: {
       eyebrow: 'Mitra IT Generasi Baru',
       title: 'Mitra IT Generasi Baru Anda',
@@ -104,6 +106,27 @@ export const id: Dictionary = {
     s6: {
       title: 'Pelatihan',
       text: 'Program praktik langsung untuk meningkatkan keterampilan tim Anda dalam pengembangan modern dan operasional sistem.',
+    },
+  },
+  process: {
+    eyebrow: 'Cara kami bekerja',
+    title: 'Alur yang jelas dari ide hingga peluncuran',
+    lead: 'Setiap proyek melalui empat tahap yang sama, sehingga Anda selalu tahu langkah berikutnya.',
+    s1: {
+      title: 'Pahami kebutuhan',
+      text: 'Kami memahami tujuan, pengguna, dan batasan Anda, lalu menyepakati ruang lingkup, jadwal, dan anggaran secara tertulis.',
+    },
+    s2: {
+      title: 'Rancang',
+      text: 'Wireframe dan prototipe interaktif memungkinkan Anda melihat dan menguji produk sebelum kode produksi ditulis.',
+    },
+    s3: {
+      title: 'Bangun & luncurkan',
+      text: 'Kami membangun dalam sprint singkat dengan demo di akhir setiap sprint, lalu merilis dengan pengujian otomatis.',
+    },
+    s4: {
+      title: 'Dampingi',
+      text: 'Setelah peluncuran, kami memantau, memperbaiki, dan mengembangkan, serta membalas dalam satu hari kerja.',
     },
   },
   cta: {

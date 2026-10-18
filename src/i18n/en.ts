@@ -25,11 +25,13 @@ export const en = {
     closeMenu: 'Close menu',
   },
   hero: {
-    cta: 'Talk to Us',
-    ctaSecondary: 'Explore Services',
+    cta: 'Talk to us',
+    ctaSecondary: 'Explore services',
     prev: 'Previous slide',
     next: 'Next slide',
     goTo: 'Go to slide {{n}}',
+    pause: 'Pause slideshow',
+    play: 'Play slideshow',
     s1: {
       eyebrow: 'Next-Gen IT Partner',
       title: 'Your Next-Gen IT Partner',
@@ -103,6 +105,27 @@ export const en = {
     s6: {
       title: 'Training',
       text: "Hands-on programs that build your team's skills in modern development and system operations.",
+    },
+  },
+  process: {
+    eyebrow: 'How we work',
+    title: 'A clear path from idea to launch',
+    lead: 'Every project follows the same four steps, so you always know what happens next.',
+    s1: {
+      title: 'Discover',
+      text: 'We learn your goals, users and constraints, then agree on scope, timeline and budget in writing.',
+    },
+    s2: {
+      title: 'Design',
+      text: 'Wireframes and clickable prototypes let you see and test the product before any production code is written.',
+    },
+    s3: {
+      title: 'Build & launch',
+      text: 'We build in short sprints with a demo at the end of each one, then release with automated tests.',
+    },
+    s4: {
+      title: 'Support',
+      text: 'After launch we monitor, fix and improve, and reply within one business day.',
     },
   },
   cta: {

@@ -1,5 +1,6 @@
 import { useReveal } from '../hooks/useReveal'
 import { useT, type TKey } from '../i18n'
+import { keepCompounds } from '../lib/text'
 
 interface Props {
   titleId: string
@@ -47,7 +48,7 @@ export function SectionHeader({ titleId, eyebrow, title, lead, layout = 'start',
           {t(eyebrow)}
         </p>
         <h2 id={titleId} className={`mt-4 text-h2 font-extrabold tracking-tight text-balance ${c.title}`}>
-          {t(title)}
+          {keepCompounds(t(title))}
         </h2>
       </div>
       {lead && (

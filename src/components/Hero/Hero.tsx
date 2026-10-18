@@ -2,7 +2,8 @@ import { useRef, type CSSProperties, type KeyboardEvent, type PointerEvent } fro
 import { useCarousel } from '../../hooks/useCarousel'
 import { useT } from '../../i18n'
 import { inertWhen } from '../../lib/a11y'
-import { ChevronLeftIcon, ChevronRightIcon } from '../icons'
+import { keepCompounds } from '../../lib/text'
+import { ChevronLeftIcon, ChevronRightIcon, PauseIcon, PlayIcon } from '../icons'
 import { SlideArt } from './SlideArt'
 import { HERO_INTERVAL_MS, SLIDES } from './slides'
 
@@ -10,7 +11,7 @@ const SWIPE_PX = 50
 
 export function Hero() {
   const { t } = useT()
-  const { index, paused, setHovered, go, next, prev } = useCarousel(SLIDES.length, { interval: HERO_INTERVAL_MS })
+  const { index, paused, playing, setPlaying, setHovered, go, next, prev } = useCarousel(SLIDES.length, { interval: HERO_INTERVAL_MS })
   const tabs = useRef<(HTMLButtonElement | null)[]>([])
   const pointerStart = useRef<number | null>(null)
 
@@ -60,7 +61,7 @@ export function Hero() {
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
       onKeyDown={onRegionKey}
-      className="on-dark relative isolate grid min-h-[calc(100svh-var(--header-h))] overflow-hidden bg-brand-900 text-white md:min-h-[36rem] md:max-h-[52rem]"
+      className="on-dark relative isolate grid overflow-hidden bg-brand-900 text-white md:min-h-[36rem] md:max-h-[52rem]"
       style={{ '--hero-interval': `${HERO_INTERVAL_MS}ms` } as CSSProperties}
     >
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-brand-gradient opacity-40" />
@@ -87,7 +88,7 @@ export function Hero() {
               <div className="mx-auto grid h-full max-w-page grid-cols-1 items-center gap-10 px-gutter pb-28 pt-section lg:grid-cols-[1.1fr_0.9fr]">
                 <div className="max-w-2xl">
                   <p className="mb-4 text-small font-semibold uppercase tracking-[0.2em] text-accent-300">{t(s.eyebrow)}</p>
-                  <h2 className="text-display font-extrabold tracking-tight text-balance">{t(s.title)}</h2>
+                  <h2 className="text-display font-extrabold tracking-tight text-balance">{keepCompounds(t(s.title))}</h2>
                   <p className="mt-6 max-w-prose text-body text-white/80">{t(s.text)}</p>
                   <div className="mt-8 flex flex-wrap gap-4">
                     <a
@@ -113,7 +114,17 @@ export function Hero() {
 
       <div className="absolute inset-x-0 bottom-0">
         <div className="mx-auto flex max-w-page items-center justify-between px-gutter pb-6">
-          <div role="tablist" aria-label={t('nav.home')} onKeyDown={onTabKey} className="flex items-center">
+          <div className="flex items-center">
+            {/* Rotation control first (APG carousel): auto-rotation must be stoppable (WCAG 2.2.2). */}
+            <button
+              type="button"
+              onClick={() => setPlaying(!playing)}
+              aria-label={playing ? t('hero.pause') : t('hero.play')}
+              className="mr-1 grid size-11 place-items-center rounded-pill border border-white/30 transition-colors hover:border-accent-300 hover:text-accent-300"
+            >
+              {playing ? <PauseIcon width={18} height={18} /> : <PlayIcon width={18} height={18} />}
+            </button>
+            <div role="tablist" aria-label={t('nav.home')} onKeyDown={onTabKey} className="flex items-center">
             {SLIDES.map((s, i) => {
               const current = i === index
               return (
@@ -138,6 +149,7 @@ export function Hero() {
                 </button>
               )
             })}
+            </div>
           </div>
           <div className="flex items-center gap-2">
             <button

@@ -1,5 +1,6 @@
 import { useReveal } from '../../hooks/useReveal'
 import { useT } from '../../i18n'
+import { keepCompounds } from '../../lib/text'
 import { ArrowRightIcon } from '../icons'
 import type { Service } from './data'
 
@@ -69,7 +70,7 @@ export function ServiceCard({ service, index, href }: Props) {
         </div>
 
         {/* Row 2 */}
-        <h3 className="text-h3 font-bold tracking-tight text-balance wrap-break-word text-brand-900">{title}</h3>
+        <h3 className="text-h3 font-bold tracking-tight text-balance wrap-break-word text-brand-900">{keepCompounds(title)}</h3>
 
         {/* Row 3 */}
         <p className="text-pretty text-slate-brand">{t(service.text)}</p>

@@ -80,14 +80,17 @@ export function Footer() {
         <div ref={tier2.ref} className={`${tier2.className} ${COLS} mt-12 border-t border-white/10 pt-12`}>
           <div className="min-w-0">
             <Logo full />
-            <p className="mt-6 text-small font-semibold uppercase tracking-[0.2em] text-balance text-accent-300">{t('footer.tagline')}</p>
+            <p className="mt-6 text-small font-semibold uppercase tracking-[0.2em] text-balance text-accent-300">
+              {/* A no-break space ties each bullet to the word before it, so a line never starts with "•". */}
+              {t('footer.tagline').split(/\s*•\s*/).join('\u00a0• ')}
+            </p>
             <p className="mt-3 max-w-prose">{t('footer.about')}</p>
           </div>
           <nav aria-labelledby="footer-links-title" className="min-w-0 xl:col-span-2">
             <h2 id="footer-links-title" className="text-small font-semibold uppercase tracking-[0.2em] text-white">
               {t('footer.quickLinks')}
             </h2>
-            <ul className="mt-2 grid grid-cols-2 gap-x-6">
+            <ul className="mt-2 grid w-fit grid-cols-2 gap-x-12">
               {NAV_LINKS.map((l) => (
                 <li key={l.section}>
                   <a href={navHref(l.section)} className={`inline-flex min-h-11 items-center rounded-sm ${LINK}`}>

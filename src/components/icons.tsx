@@ -71,6 +71,19 @@ export const ChevronRightIcon = (p: IconProps) => (
   </Icon>
 )
 
+export const PauseIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <rect x="14" y="4" width="4" height="16" rx="1" />
+    <rect x="6" y="4" width="4" height="16" rx="1" />
+  </Icon>
+)
+
+export const PlayIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <polygon points="6 3 20 12 6 21 6 3" />
+  </Icon>
+)
+
 export const ArrowRightIcon = (p: IconProps) => (
   <Icon {...p}>
     <path d="M5 12h14" />
@@ -163,6 +176,34 @@ export const GraduationCapIcon = (p: IconProps) => (
     <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" />
     <path d="M22 10v6" />
     <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
+  </Icon>
+)
+
+// How we work (step 3 reuses CodeIcon)
+export const SearchIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="11" cy="11" r="8" />
+    <path d="m21 21-4.3-4.3" />
+  </Icon>
+)
+
+export const PenToolIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M15.707 21.293a1 1 0 0 1-1.414 0l-1.586-1.586a1 1 0 0 1 0-1.414l5.586-5.586a1 1 0 0 1 1.414 0l1.586 1.586a1 1 0 0 1 0 1.414z" />
+    <path d="m18 13-1.375-6.874a1 1 0 0 0-.746-.776L3.235 2.028a1 1 0 0 0-1.207 1.207L5.35 15.879a1 1 0 0 0 .776.746L13 18" />
+    <path d="m2.3 2.3 7.286 7.286" />
+    <circle cx="11" cy="11" r="2" />
+  </Icon>
+)
+
+export const LifeBuoyIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="12" cy="12" r="10" />
+    <path d="m4.93 4.93 4.24 4.24" />
+    <path d="m14.83 9.17 4.24-4.24" />
+    <path d="m14.83 14.83 4.24 4.24" />
+    <path d="m9.17 14.83-4.24 4.24" />
+    <circle cx="12" cy="12" r="4" />
   </Icon>
 )
 

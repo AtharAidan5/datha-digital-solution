@@ -1,5 +1,6 @@
 import { revealDelay, useReveal } from '../../hooks/useReveal'
 import { useT } from '../../i18n'
+import { keepCompounds } from '../../lib/text'
 import { ArrowRightIcon, HandshakeIcon, LayersIcon, RefreshCwIcon, ShieldCheckIcon, type IconComponent } from '../icons'
 import type { SectionId } from '../nav'
 import { SectionHeader } from '../SectionHeader'
@@ -30,7 +31,7 @@ function WhyPoint({ point, index }: { point: WhyPointData; index: number }) {
         <Icon width={24} height={24} />
       </span>
       <div className="min-w-0">
-        <h3 className="text-h3 font-bold text-balance text-brand-900">{t(point.title)}</h3>
+        <h3 className="text-h3 font-bold text-balance text-brand-900">{keepCompounds(t(point.title))}</h3>
         <p className="mt-2 text-pretty text-slate-brand">{t(point.text)}</p>
       </div>
     </li>
