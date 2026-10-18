@@ -5,3 +5,5 @@ CLAUDE.local.md
 .claude/
 docs/
 *.tsbuildinfo
+playwright-report/
+test-results/

@@ -15,7 +15,10 @@ export function Layout({ children }: { children: ReactNode }) {
         {t('common.skipToContent')}
       </a>
       <Header />
-      <main id="main">{children}</main>
+      {/* scroll-margin = the top bar: the skip link scrolls to the very top instead of half-hiding the top bar. */}
+      <main id="main" className="scroll-mt-[var(--topbar-h)]">
+        {children}
+      </main>
       <Footer />
     </>
   )

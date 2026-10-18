@@ -61,7 +61,8 @@ export function Hero() {
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
       onKeyDown={onRegionKey}
-      className="on-dark relative isolate grid overflow-hidden bg-brand-900 text-white md:min-h-[36rem] md:max-h-[52rem]"
+      // scroll-mt: #top (Home, logo) sits right under the full header, so jumps to it return to the very top.
+      className="on-dark relative isolate grid scroll-mt-[var(--topbar-h)] overflow-hidden bg-brand-900 text-white md:min-h-[36rem] md:max-h-[52rem]"
       style={{ '--hero-interval': `${HERO_INTERVAL_MS}ms` } as CSSProperties}
     >
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-brand-gradient opacity-40" />

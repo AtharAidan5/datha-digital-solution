@@ -41,15 +41,28 @@
 :root {
   --gradient-brand: linear-gradient(135deg, var(--color-brand-900) 0%, var(--color-brand-500) 55%, var(--color-accent-300) 100%);
   --gradient-brand-text: linear-gradient(90deg, var(--color-brand-500), var(--color-accent-400));
-  /* Sticky header height: top bar (2.5rem) + navbar (4rem / 5rem at lg). Header.tsx removes the top bar part on scroll. */
+  /* Header = top bar (2.5rem) + navbar (4rem / 5rem at lg). It sticks at top: -topbar-h, so the top bar scrolls away
+     with the page and only the navbar stays pinned. Its height never changes, so nothing below it ever shifts. */
   --topbar-h: 2.5rem;
   --navbar-h: 4rem;
+  /* Visible header height: full at the top of the page, the navbar alone once Header.tsx sets data-scrolled. */
   --header-h: calc(var(--topbar-h) + var(--navbar-h));
 }
 @media (width >= 64rem) { :root { --navbar-h: 5rem; } }
-:root[data-scrolled] { --topbar-h: 0rem; }
+:root[data-scrolled] { --header-h: var(--navbar-h); }
 
-html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 1rem); }
+/* Navbar only: any anchor target is far enough down that the top bar has scrolled away (the hero and <main>,
+   which sit right under the full header, add --topbar-h as scroll-margin and land at the very top). */
+html { scroll-padding-top: calc(var(--navbar-h) + 1rem); }
+/* Controls in the sticky header bars are always on screen, but sit inside that padding: focusing one would scroll
+   the page by it every time (Tab through the navbar, Shift+Tab back to the menu button). Cancel it for them. Not
+   for the menu panel's links: the panel scrolls on its own and they must stay fully visible in it. */
+header :is(a, button):not(#mobile-menu *) { scroll-margin-top: calc(-1 * (var(--navbar-h) + 1rem)); }
+/* Smooth only for the visitor's own jumps (lib/scroll.ts arms it after load + first input); the browser's own
+   scrolls (arrival at /#section, restoring the position) stay instant. Reduced motion never gets it. */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-smooth-scroll] { scroll-behavior: smooth; }
+}
 body { @apply bg-white font-sans text-body text-ink antialiased; }
 
 :focus-visible { outline: 2px solid var(--color-brand-500); outline-offset: 2px; }
@@ -77,7 +90,6 @@ body { @apply bg-white font-sans text-body text-ink antialiased; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .hero-progress { animation: none; transform: scaleX(1); }
   * { animation-duration: .01ms !important; }
