@@ -20,7 +20,7 @@ export const site = {
   social: [
     { id: 'linkedin', label: 'LinkedIn', href: '[linkedin url]' },
     { id: 'instagram', label: 'Instagram', href: '[instagram url]' },
-    { id: 'whatsapp', label: 'WhatsApp', href: '[whatsapp number]' },
+    { id: 'whatsapp', label: 'WhatsApp', href: '0823-2180-2323' },
   ] satisfies SocialLink[],
   year: new Date().getFullYear(),
 }
