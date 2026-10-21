@@ -24,6 +24,11 @@ export default defineConfig({
   projects: [
     { name: 'desktop', use: { ...devices['Desktop Chrome'] } },
     { name: 'mobile', use: { ...devices['Pixel 5'] } },
+    // Other engines: `npx playwright install webkit firefox` once. Specs branch on the isMobile fixture
+    // (Firefox has no mobile emulation, so it runs as desktop only).
+    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+    { name: 'mobile-safari', use: { ...devices['iPhone 13'] } },
   ],
   webServer: {
     command: `npm run build && npm run preview -- --port ${PORT} --strictPort`,

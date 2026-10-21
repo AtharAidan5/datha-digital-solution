@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import { App } from './App'
 import { I18nProvider } from './i18n'
-import { smoothScrollAfterLoad } from './lib/scroll'
+import { restoreScrollOnReturn, smoothScrollAfterLoad } from './lib/scroll'
 
 const root = createRoot(document.getElementById('root')!)
 // Synchronous first render: the sections must exist before the browser runs its own jump to /#section, its scroll
@@ -18,4 +18,5 @@ flushSync(() =>
     </StrictMode>,
   ),
 )
+restoreScrollOnReturn()
 smoothScrollAfterLoad()

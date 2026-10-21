@@ -6,7 +6,7 @@ import { Layout } from './components/Layout'
 import { I18nProvider } from './i18n'
 import { LEGAL_TITLE, type LegalPageId } from './legal/content'
 import { LegalPage } from './legal/LegalPage'
-import { smoothScrollAfterLoad } from './lib/scroll'
+import { restoreScrollOnReturn, smoothScrollAfterLoad } from './lib/scroll'
 
 // Entry for /privacy/ and /terms/ (Vite multi-page). The page id comes from <body data-page="…">.
 const page: LegalPageId = document.body.dataset.page === 'terms' ? 'terms' : 'privacy'
@@ -24,4 +24,5 @@ flushSync(() =>
     </StrictMode>,
   ),
 )
+restoreScrollOnReturn()
 smoothScrollAfterLoad()

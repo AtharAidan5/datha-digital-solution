@@ -159,6 +159,7 @@ for (const motion of ['reduce', 'no-preference'] as const) {
       await expect(page.locator('#services')).toBeInViewport()
       await page.evaluate(() => scrollTo(0, document.documentElement.scrollHeight))
       const before = await page.evaluate(() => scrollY)
+      await waitForSavedScroll(page, before)
       await page.reload()
       await expectRestoredDirectly(page, before)
     })
@@ -170,6 +171,7 @@ for (const motion of ['reduce', 'no-preference'] as const) {
       await page.keyboard.press('Shift') // a real input arms smooth scrolling on this page
       await page.evaluate(() => scrollTo({ top: 2400, behavior: 'instant' }))
       const before = await page.evaluate(() => scrollY)
+      await waitForSavedScroll(page, before)
       await page.evaluate(() => {
         location.href = '/privacy/'
       })
@@ -214,6 +216,14 @@ async function recordScrolls(page: Page) {
     w.e2eScrolls = []
     addEventListener('scroll', () => w.e2eScrolls.push(Math.round(scrollY)), { passive: true })
   })
+}
+
+/**
+ * lib/scroll.ts saves the position into the history entry once scrolling has stopped (and on click / key press);
+ * a reload or browser Back within that moment returns to the previous save, as for a real visitor.
+ */
+async function waitForSavedScroll(page: Page, y: number) {
+  await page.waitForFunction((v) => (history.state as { scrollY?: number } | null)?.scrollY === v, y)
 }
 
 /**

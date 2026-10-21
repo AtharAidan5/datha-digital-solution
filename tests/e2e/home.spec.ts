@@ -21,8 +21,11 @@ test.describe('home page', () => {
     expect(ids).toEqual([...SECTION_IDS])
   })
 
-  test('skip link is the first tab stop and targets main', async ({ page, isMobile, baseURL }) => {
+  test('skip link is the first tab stop and targets main', async ({ page, isMobile, baseURL, browserName }) => {
     test.skip(isMobile, 'keyboard flow is checked on desktop')
+    // Safari's Tab skips links unless the user turns on "Press Tab to highlight each item" (or holds Option on macOS,
+    // which Playwright's WebKit build cannot emulate), so a link can never be the first Tab stop there.
+    test.skip(browserName === 'webkit', 'WebKit Tab skips links by default')
     await page.keyboard.press('Tab')
     const skip = page.getByRole('link', { name: 'Skip to content' })
     await expect(skip).toBeFocused()
