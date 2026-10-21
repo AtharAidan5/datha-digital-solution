@@ -39,8 +39,9 @@ const ART: Record<ArtKind, () => JSX.Element> = {
       <circle cx="160" cy="130" r="64" fill="none" stroke={CYAN} strokeWidth="14" opacity={0.8} />
       <circle cx="160" cy="130" r="32" fill="none" stroke="white" strokeWidth="14" opacity={0.9} />
       <circle cx="160" cy="130" r="10" fill={CYAN} />
-      <path d="M236 54l40-40v26h26l-40 40h-26Z" fill="white" opacity={0.9} />
-      <path d="M160 130l78-78" stroke="white" strokeWidth="6" strokeLinecap="round" />
+      {/* Arrow stuck in the bullseye, flying in at 45deg: two swept-back vanes mirrored about the shaft at its tail. */}
+      <path d="M233.5 56.5L261.8 59.3L283 38.1L254.8 35.2ZM233.5 56.5L230.7 28.2L251.9 7L254.8 35.2Z" fill="white" opacity={0.9} />
+      <path d="M160 130L266.1 23.9" stroke="white" strokeWidth="6" strokeLinecap="round" />
     </>
   ),
   team: () => (
