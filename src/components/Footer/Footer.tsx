@@ -1,4 +1,3 @@
-import { useReveal } from '../../hooks/useReveal'
 import { useT } from '../../i18n'
 import { socialHref } from '../../lib/links'
 import { site, type SocialId } from '../../lib/site.config'
@@ -11,9 +10,9 @@ import { SectionHeader } from '../SectionHeader'
 import { LocationCard } from './LocationCard'
 import { LOCATIONS } from './locations'
 
-/** Shared by both tiers so their columns align: 1 / md:2 / xl:3. No items-* (stretch = equal heights). */
-const COLS = 'grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 xl:grid-cols-3 xl:gap-x-12'
 const LINK = 'text-white/85 transition-colors hover:text-accent-300 motion-reduce:transition-none'
+/** Small-caps column heading (Follow us, Quick links). */
+const COL_TITLE = 'text-small font-semibold uppercase tracking-[0.2em] text-white'
 const NEW_TAB_ID = 'footer-new-tab'
 const SOCIAL_ICONS: Record<SocialId, IconComponent> = {
   linkedin: LinkedInIcon,
@@ -21,20 +20,57 @@ const SOCIAL_ICONS: Record<SocialId, IconComponent> = {
   whatsapp: MessageCircleIcon,
 }
 
-/** Single-office footer. id="contact" is the target of every Contact CTA, so the contact tier comes first. */
+/**
+ * Single-office footer in one grid: brand | contact | quick links (lg), brand + links | contact (md), stacked below.
+ * The contact column carries id="contact", the target of every Contact CTA, so a jump lands on the contact details
+ * on every width. Nothing here is revealed: it must be readable the moment #contact lands.
+ */
 export function Footer() {
   const { t } = useT()
-  const tier2 = useReveal<HTMLDivElement>()
 
   return (
-    // Sibling of <main> = the page's contentinfo landmark.
-    <footer id="contact" className="on-dark relative isolate overflow-hidden bg-brand-900 text-white/75">
+    // Sibling of <main> = the page's contentinfo landmark. Tracked as the "Contact" section as a whole (nav state);
+    // the jump target #contact is its contact column.
+    <footer data-section="contact" className="on-dark relative isolate overflow-hidden bg-brand-900 text-white/75">
       <div aria-hidden="true" className="h-1 bg-brand-gradient" />
       <div aria-hidden="true" className="hero-glow pointer-events-none absolute inset-0 -z-10 opacity-30" />
 
-      <div className="mx-auto max-w-page px-gutter pb-12 pt-section">
-        {/* Tier 1: contact. Static (not revealed): readable the moment #contact lands. */}
-        <div className={COLS}>
+      <div className="mx-auto grid max-w-page grid-cols-1 gap-x-8 gap-y-12 px-gutter pb-12 pt-section md:grid-cols-2 lg:grid-cols-12 lg:gap-x-12">
+        <div className="min-w-0 lg:col-span-4">
+          <Logo full />
+          <p className="mt-6 text-small font-semibold uppercase tracking-[0.2em] text-balance text-accent-300">
+            {/* A no-break space ties each bullet to the word before it, so a line never starts with "•". */}
+            {t('footer.tagline').split(/\s*•\s*/).join(' • ')}
+          </p>
+          <p className="mt-3 max-w-prose">{t('footer.about')}</p>
+
+          <h2 id="footer-social-title" className={`mt-8 ${COL_TITLE}`}>
+            {t('footer.followUs')}
+          </h2>
+          <ul role="list" aria-labelledby="footer-social-title" className="mt-4 flex flex-wrap gap-3">
+            {site.social.map((s) => {
+              const Icon = SOCIAL_ICONS[s.id]
+              return (
+                <li key={s.id}>
+                  <ContactLink
+                    href={socialHref(s)}
+                    external
+                    describedBy={NEW_TAB_ID}
+                    className="grid size-11 place-items-center rounded-pill border"
+                    linkClassName="border-white/25 text-white transition-colors hover:border-accent-300 hover:text-accent-300 motion-reduce:transition-none"
+                    placeholderClassName="border-dashed border-white/20 text-white/40"
+                  >
+                    <Icon width={20} height={20} />
+                    <span className="sr-only">{s.label}</span>
+                  </ContactLink>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+
+        {/* md: spans both rows next to brand + links. */}
+        <div id="contact" className="flex min-w-0 flex-col gap-8 md:row-span-2 lg:col-span-5 lg:row-span-1">
           <SectionHeader
             tone="dark"
             reveal={false}
@@ -42,65 +78,26 @@ export function Footer() {
             eyebrow="nav.contact"
             title="footer.contactTitle"
             lead="footer.contactLead"
-            className="min-w-0 md:col-span-2 xl:col-span-1"
           />
-
           {LOCATIONS.map((loc) => (
             <LocationCard key={loc.id} location={loc} newTabId={NEW_TAB_ID} />
           ))}
-
-          <div className="flex min-w-0 flex-col border-t border-white/15 pt-6">
-            <h3 id="footer-social-title" className="text-h3 font-bold text-white">
-              {t('footer.followUs')}
-            </h3>
-            <ul role="list" aria-labelledby="footer-social-title" className="mt-4 flex flex-wrap gap-3">
-              {site.social.map((s) => {
-                const Icon = SOCIAL_ICONS[s.id]
-                return (
-                  <li key={s.id}>
-                    <ContactLink
-                      href={socialHref(s)}
-                      external
-                      describedBy={NEW_TAB_ID}
-                      className="grid size-11 place-items-center rounded-pill border"
-                      linkClassName="border-white/25 text-white transition-colors hover:border-accent-300 hover:text-accent-300 motion-reduce:transition-none"
-                      placeholderClassName="border-dashed border-white/20 text-white/40"
-                    >
-                      <Icon width={20} height={20} />
-                      <span className="sr-only">{s.label}</span>
-                    </ContactLink>
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
         </div>
 
-        {/* Tier 2: brand + quick links, same column template. */}
-        <div ref={tier2.ref} className={`${tier2.className} ${COLS} mt-12 border-t border-white/10 pt-12`}>
-          <div className="min-w-0">
-            <Logo full />
-            <p className="mt-6 text-small font-semibold uppercase tracking-[0.2em] text-balance text-accent-300">
-              {/* A no-break space ties each bullet to the word before it, so a line never starts with "•". */}
-              {t('footer.tagline').split(/\s*•\s*/).join('\u00a0• ')}
-            </p>
-            <p className="mt-3 max-w-prose">{t('footer.about')}</p>
-          </div>
-          <nav aria-labelledby="footer-links-title" className="min-w-0 xl:col-span-2">
-            <h2 id="footer-links-title" className="text-small font-semibold uppercase tracking-[0.2em] text-white">
-              {t('footer.quickLinks')}
-            </h2>
-            <ul className="mt-2 grid w-fit grid-cols-2 gap-x-12">
-              {NAV_LINKS.map((l) => (
-                <li key={l.section}>
-                  <a href={navHref(l.section)} className={`inline-flex min-h-11 items-center rounded-sm ${LINK}`}>
-                    {t(l.key)}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
+        <nav aria-labelledby="footer-links-title" className="min-w-0 lg:col-span-3">
+          <h2 id="footer-links-title" className={COL_TITLE}>
+            {t('footer.quickLinks')}
+          </h2>
+          <ul className="mt-2 grid w-fit grid-cols-2 gap-x-12 lg:grid-cols-1">
+            {NAV_LINKS.map((l) => (
+              <li key={l.section}>
+                <a href={navHref(l.section)} className={`inline-flex min-h-11 items-center rounded-sm ${LINK}`}>
+                  {t(l.key)}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
 
       {/* Legal row: night band mirrors the header's night top bar. */}

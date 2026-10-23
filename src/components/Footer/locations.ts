@@ -14,7 +14,7 @@ export interface Location {
   mapUrl: string
 }
 
-/** One office for now (no workshop yet). Add entries here; the footer grid adapts per entry. */
+/** One office for now (no workshop yet). Add entries here; they stack in the footer's contact column. */
 export const LOCATIONS: readonly Location[] = [
   {
     id: 'head',

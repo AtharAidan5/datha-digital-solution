@@ -14,6 +14,17 @@ test.describe('home page', () => {
     await expect(page.getByRole('contentinfo')).toBeVisible()
   })
 
+  test('the white logo mark gets a dark ink in print and in light contrast themes', async ({ page, browserName }) => {
+    const mark = page.getByRole('banner').getByRole('link', { name: 'DATHA Digital Solution' }).locator('svg')
+    const ink = () => mark.evaluate((el) => getComputedStyle(el).color)
+    expect(await ink()).toBe('rgb(255, 255, 255)')
+    await page.emulateMedia({ media: 'print' })
+    expect(await ink()).not.toBe('rgb(255, 255, 255)')
+    test.skip(browserName === 'webkit', 'WebKit has no forced-colors mode')
+    await page.emulateMedia({ media: 'screen', forcedColors: 'active', colorScheme: 'light' })
+    expect(await ink()).not.toBe('rgb(255, 255, 255)')
+  })
+
   test('renders every section in order', async ({ page }) => {
     const ids = await page
       .locator(SECTION_IDS.map((id) => `#${id}`).join(', '))

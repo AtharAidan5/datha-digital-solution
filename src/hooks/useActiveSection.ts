@@ -1,12 +1,19 @@
 import { useEffect, useState } from 'react'
 
-/** Id of the section (from `ids`) currently nearest the top of the viewport, below the sticky header. */
+/**
+ * Id of the section (from `ids`) currently nearest the top of the viewport, below the sticky header.
+ * The tracked area is the element with `data-section="<id>"` if there is one, else `#<id>`: the jump target can be
+ * a part of the area (the footer is tracked as "contact", its contact column is the #contact target).
+ */
 export function useActiveSection(ids: readonly string[]): string | null {
   const [active, setActive] = useState<string | null>(null)
 
   useEffect(() => {
-    const sections = ids.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => el !== null)
+    const sections = ids
+      .map((id) => ({ id, el: document.querySelector<HTMLElement>(`[data-section="${id}"]`) ?? document.getElementById(id) }))
+      .filter((s): s is { id: string; el: HTMLElement } => s.el !== null)
     if (sections.length === 0) return
+    const idOf = new Map(sections.map((s) => [s.el, s.id]))
 
     const visible = new Map<string, number>()
     const last = sections[sections.length - 1]
@@ -20,15 +27,17 @@ export function useActiveSection(ids: readonly string[]): string | null {
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
-          if (e.isIntersecting) visible.set(e.target.id, e.intersectionRatio)
-          else visible.delete(e.target.id)
+          const id = idOf.get(e.target as HTMLElement)
+          if (id === undefined) continue
+          if (e.isIntersecting) visible.set(id, e.intersectionRatio)
+          else visible.delete(id)
         }
         pick()
       },
       // Top margin offsets the sticky header; bottom margin biases toward the upper part of the viewport.
       { rootMargin: '-120px 0px -55% 0px', threshold: [0, 0.1] },
     )
-    sections.forEach((s) => io.observe(s))
+    sections.forEach((s) => io.observe(s.el))
 
     const end = document.createElement('div')
     end.setAttribute('aria-hidden', 'true')

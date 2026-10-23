@@ -76,5 +76,10 @@ export function restoreScrollOnReturn() {
     addEventListener('load', () => setTimeout(() => (target.id = id)), { once: true })
   }
   const saved = (history.state as Record<string, unknown> | null)?.[SCROLL_KEY]
-  if (typeof saved === 'number') scrollTo({ top: saved, behavior: 'instant' })
+  if (typeof saved === 'number') {
+    // Own this load's restoration, then hand it back: in-page Back / Forward between #sections stays the browser's.
+    history.scrollRestoration = 'manual'
+    addEventListener('load', () => setTimeout(() => (history.scrollRestoration = 'auto')), { once: true })
+    scrollTo({ top: saved, behavior: 'instant' })
+  }
 }

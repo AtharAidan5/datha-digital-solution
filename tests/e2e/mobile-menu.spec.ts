@@ -58,6 +58,14 @@ test.describe('mobile menu', () => {
     expect(Math.abs(panelTop - navBottom)).toBeLessThanOrEqual(1)
   })
 
+  test('Contact is current as soon as the footer reaches the top, before its contact column does', async ({ page }) => {
+    // Stacked footer: brand + Follow us come first, the #contact column is further down.
+    await page.evaluate(() => scrollTo(0, document.querySelector('footer')!.getBoundingClientRect().top + scrollY - 150))
+    const box = await page.locator('button[aria-controls="mobile-menu"]').boundingBox()
+    await page.mouse.click(box!.x + box!.width / 2, box!.y + box!.height / 2)
+    await expect(page.locator('#mobile-menu').getByRole('link', { name: 'Contact', exact: true })).toHaveAttribute('aria-current', 'location')
+  })
+
   test('a menu link navigates and closes the menu', async ({ page, baseURL }) => {
     const burger = page.locator('button[aria-controls="mobile-menu"]')
     await burger.click()
